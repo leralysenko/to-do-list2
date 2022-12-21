@@ -1,0 +1,28 @@
+<div class="menu">
+    <div class="sort">
+        <mat-form-field>
+            <mat-label>Sort By</mat-label>
+            <mat-select [(ngModel)]="criteria.property">
+              <mat-option value="currentDate">
+                Date
+              </mat-option>
+              <mat-option value="name">
+                Text
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-radio-group [(ngModel)]="criteria.descending">
+            <mat-radio-button [value]="false">A > Z</mat-radio-button>
+            <mat-radio-button [value]="true">Z > A</mat-radio-button>
+        </mat-radio-group>
+    </div>
+    <div class="filter">
+        <mat-form-field>
+            <input matInput placeholder="Filter" [(ngModel)]="criteria.filter">
+        </mat-form-field>
+    </div>
+    <div class="btns">
+        <button mat-raised-button color="primary" (click)="filter()" class="apply">Apply</button>
+        <button mat-raised-button (click)="clear()" class="clear">Clear</button>
+    </div>
+</div>

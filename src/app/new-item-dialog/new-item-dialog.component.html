@@ -1,0 +1,21 @@
+<div class="new-item">
+    <div class="container">
+        <mat-form-field>
+            <input matInput [(ngModel)]="newItem.name">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="newItem.currentDate">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="newItem.expiredDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+    </div>
+    <div class="buttons-ctn">
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+        <button mat-raised-button (click)="cancel()">Cancel</button>
+    </div>
+</div>

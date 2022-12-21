@@ -1,0 +1,8 @@
+<div class="item" *ngIf="item">
+    <div>
+        <mat-checkbox [(ngModel)]="item.isDone"></mat-checkbox>
+    </div>
+    <div class="name" [ngClass]="item.isDone ? 'disabled-name' : ''">{{item.name}}</div>
+    <div><mat-icon (click)="editItem()" class="edit">edit</mat-icon></div>
+    <div><mat-icon (click)="deleteItem()" class="delete">close</mat-icon></div>
+</div>

@@ -1,0 +1,21 @@
+<div class="list">
+    <div>
+        <app-new-item (addedNewItem)="addNewItem($event)" (openedItem)="openNewItem($event)"
+        (openedFilterMenu)="openFilterMenu()"
+        [newItem]="newItem"></app-new-item>
+    </div>
+    <div *ngIf="isShowedFilterMenu" class="filter-menu">
+        <app-filter (filteredList)="filterList($event)"></app-filter>
+    </div>
+    <div *ngFor="let item of filteredList">
+        <ng-container *ngIf="mode === 'all' || (mode === 'active' && !item.isDone) || (mode === 'completed' && item.isDone)">
+            <app-item [item]="item" (deletedItem)="deleteItem($event)" (openedItem)="openExistItem($event)"></app-item>
+        </ng-container>
+    </div>
+    <div class="actions" *ngIf="list.length">
+        <button mat-raised-button (click)="changeMode('all')">All</button>
+        <button mat-raised-button color="primary" (click)="changeMode('active')">Active</button>
+        <button mat-raised-button color="primary" (click)="changeMode('completed')">Completed</button>
+        <button mat-raised-button (click)="deleteCompletedItems()">Clear completed</button>
+    </div>
+</div>

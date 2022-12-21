@@ -1,0 +1,7 @@
+<div class="new-item">
+    <div><mat-icon (click)="openFilterMenu()" class="open">sort</mat-icon></div>
+    <mat-form-field (keydown)="keyDownFunction($event)">
+        <input matInput [(ngModel)]="newItem.name">
+      </mat-form-field>
+    <div><mat-icon (click)="openDialog()" class="edit">add_circle</mat-icon></div>
+</div>

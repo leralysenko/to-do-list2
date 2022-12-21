@@ -1,0 +1,14 @@
+.new-item {
+    .container {
+        display: flex;
+        align-items: center;
+        * {
+            margin-right: 10px;
+        }
+    }
+    .buttons-ctn {
+        * {
+            margin-right: 10px;
+        }
+    }
+}
