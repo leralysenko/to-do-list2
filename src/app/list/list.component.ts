@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { filter, Observable } from 'rxjs';
 import { Criteria } from '../model/Criteria';
 import { Item } from '../model/Item';
+import { Mode } from '../model/Mode';
 import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
 
 @Component({
@@ -14,11 +15,12 @@ export class ListComponent {
 
   public list: Item[] = [];
   public filteredList: Item[] = [];
-  public mode: string = 'all';
+  public mode: string = Mode.all;
   public isShowedFilterMenu = false;
   public criteria: Criteria;
 
   public newItem: Item;
+  public modes = Mode;
 
   constructor(
     private readonly dialog: MatDialog,

@@ -8,14 +8,14 @@
         <app-filter (filteredList)="filterList($event)"></app-filter>
     </div>
     <div *ngFor="let item of filteredList">
-        <ng-container *ngIf="mode === 'all' || (mode === 'active' && !item.isDone) || (mode === 'completed' && item.isDone)">
+        <ng-container *ngIf="mode === modes.all || (mode === modes.active && !item.isDone) || (mode === modes.completed && item.isDone)">
             <app-item [item]="item" (deletedItem)="deleteItem($event)" (openedItem)="openExistItem($event)"></app-item>
         </ng-container>
     </div>
     <div class="actions" *ngIf="list.length">
-        <button mat-raised-button (click)="changeMode('all')">All</button>
-        <button mat-raised-button color="primary" (click)="changeMode('active')">Active</button>
-        <button mat-raised-button color="primary" (click)="changeMode('completed')">Completed</button>
+        <button mat-raised-button (click)="changeMode(modes.all)">All</button>
+        <button mat-raised-button color="primary" (click)="changeMode(modes.active)">Active</button>
+        <button mat-raised-button color="primary" (click)="changeMode(modes.completed)">Completed</button>
         <button mat-raised-button (click)="deleteCompletedItems()">Clear completed</button>
     </div>
 </div>

@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { By } from '@angular/platform-browser';
 import { Criteria } from '../model/Criteria';
 import { Item } from '../model/Item';
+import { Mode } from '../model/Mode';
 import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
 
 import { ListComponent } from './list.component';
@@ -44,7 +45,7 @@ describe('ListComponent', () => {
     expect(component.list).toContain(newItem);
   });
 
-  it('should call deleteItem method and add item in list', () => {
+  it('should call deleteItem method and delete item from list', () => {
     component.addNewItem(newItem);
     component.deleteItem(newItem);
     const isContain = component.list.some(el => el.id === newItem.id);
@@ -52,7 +53,7 @@ describe('ListComponent', () => {
   });
 
   it('should call changeMode method and set new mode value', () => {
-    const mode = 'active';
+    const mode = Mode.active;
     component.changeMode(mode);
     expect(component.mode).toEqual(mode);
   });
