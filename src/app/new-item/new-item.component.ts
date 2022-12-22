@@ -36,7 +36,7 @@ export class NewItemComponent implements OnInit {
     this.initNewItem();
   }
 
-  private initNewItem(): void {
+  public initNewItem(): void {
     this.newItem = new Item('', false);
   }
 

@@ -32,11 +32,11 @@ describe('ItemComponent', () => {
     expect(component.deleteItem).toHaveBeenCalled();
   }));
 
-  it('should send data through deletedItem output when call deleteItem method', fakeAsync(() => {
+  it('should send data through deletedItem output when call deleteItem method', () => {
     spyOn(component.deletedItem, 'emit');
     component.deleteItem();
     expect(component.deletedItem.emit).toHaveBeenCalled();
-  }));
+  });
 
   it('should call editItem method when click edit icon button', fakeAsync(() => {
     spyOn(component, 'editItem');
@@ -46,9 +46,9 @@ describe('ItemComponent', () => {
     expect(component.editItem).toHaveBeenCalled();
   }));
 
-  it('should send data through openedItem output when call editItem method', fakeAsync(() => {
+  it('should send data through openedItem output when call editItem method', () => {
     spyOn(component.openedItem, 'emit');
     component.editItem();
     expect(component.openedItem.emit).toHaveBeenCalled();
-  }));
+  });
 });

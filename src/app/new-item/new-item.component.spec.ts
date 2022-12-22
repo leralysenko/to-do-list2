@@ -30,11 +30,11 @@ describe('NewItemComponent', () => {
     expect(component.openFilterMenu).toHaveBeenCalled();
   }));
 
-  it('should send data through openedFilterMenu output when call openFilterMenu method', fakeAsync(() => {
+  it('should send data through openedFilterMenu output when call openFilterMenu method', () => {
     spyOn(component.openedFilterMenu , 'emit');
     component.openFilterMenu();
     expect(component.openedFilterMenu.emit).toHaveBeenCalled();
-  }));
+  });
 
   it('should call openDialog method when click add_circle icon button', fakeAsync(() => {
     spyOn(component, 'openDialog');
@@ -44,9 +44,15 @@ describe('NewItemComponent', () => {
     expect(component.openDialog).toHaveBeenCalled();
   }));
 
-  it('should send data through openedItem output when call openDialog method', fakeAsync(() => {
+  it('should send data through openedItem output when call openDialog method', () => {
     spyOn(component.openedItem, 'emit');
     component.openDialog();
     expect(component.openedItem.emit).toHaveBeenCalled();
-  }));
+  });
+
+  it('should call initItem when call ngOnInit', () => {
+    spyOn(component, 'initNewItem');
+    component.ngOnInit();
+    expect(component.initNewItem).toHaveBeenCalled();
+  });
 });

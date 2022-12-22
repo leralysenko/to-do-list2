@@ -40,24 +40,24 @@ describe('FilterComponent', () => {
     expect(component.clear).toHaveBeenCalled();
   }));
 
-  it('should send data through filteredList output when call filter method', fakeAsync(() => {
+  it('should send data through filteredList output when call filter method', () => {
     spyOn(component.filteredList, 'emit');
     component.filter();
     expect(component.filteredList.emit).toHaveBeenCalled();
-  }));
+  });
 
-  it('should send data through filteredList output when call Clear method', fakeAsync(() => {
+  it('should send data through filteredList output when call Clear method', () => {
     spyOn(component.filteredList, 'emit');
     component.clear();
     expect(component.filteredList.emit).toHaveBeenCalled();
-  }));
+  });
 
-  it('should init criteria', fakeAsync(() => {
+  it('should init criteria', () => {
     spyOn(component, 'initCriteria');
-    component.initCriteria();
+    component.ngOnInit();
+    expect(component.initCriteria).toHaveBeenCalled();
     expect(component.criteria.property).toEqual('');
     expect(component.criteria.descending).toEqual(false);
     expect(component.criteria.filter).toEqual('');
-  }));
-
+  });
 });
