@@ -24,40 +24,47 @@ describe('FilterComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call filter method when click Apply button', fakeAsync(() => {
-    spyOn(component, 'filter');
-    let button = fixture.debugElement.query(By.css('.apply'));
-    button.triggerEventHandler('click', null);
-    tick();
-    expect(component.filter).toHaveBeenCalled();
-  }));
+  describe('method: filter', () => {
+    it('should be called when user clicks an Apply button', fakeAsync(() => {
+      spyOn(component, 'filter');
+      let button = fixture.debugElement.query(By.css('.apply'));
+      button.triggerEventHandler('click', null);
+      tick();
+      expect(component.filter).toHaveBeenCalled();
+    }));
 
-  it('should call clear method when click Clear button', fakeAsync(() => {
-    spyOn(component, 'clear');
-    let button = fixture.debugElement.query(By.css('.clear'));
-    button.triggerEventHandler('click', null);
-    tick();
-    expect(component.clear).toHaveBeenCalled();
-  }));
-
-  it('should send data through filteredList output when call filter method', () => {
-    spyOn(component.filteredList, 'emit');
-    component.filter();
-    expect(component.filteredList.emit).toHaveBeenCalled();
+    it('should send data through filteredList output', () => {
+      spyOn(component.filteredList, 'emit');
+      component.filter();
+      expect(component.filteredList.emit).toHaveBeenCalled();
+    });
   });
 
-  it('should send data through filteredList output when call Clear method', () => {
-    spyOn(component.filteredList, 'emit');
-    component.clear();
-    expect(component.filteredList.emit).toHaveBeenCalled();
-  });
+  describe('method: clear', () => {
+    it('should be called when user clicks a Clear button', fakeAsync(() => {
+      spyOn(component, 'clear');
+      let button = fixture.debugElement.query(By.css('.clear'));
+      button.triggerEventHandler('click', null);
+      tick();
+      expect(component.clear).toHaveBeenCalled();
+    }));
 
-  it('should init criteria', () => {
-    spyOn(component, 'initCriteria');
-    component.ngOnInit();
-    expect(component.initCriteria).toHaveBeenCalled();
-    expect(component.criteria.property).toEqual('');
-    expect(component.criteria.descending).toEqual(false);
-    expect(component.criteria.filter).toEqual('');
+    it('should send data through filteredList output', () => {
+      spyOn(component.filteredList, 'emit');
+      component.clear();
+      expect(component.filteredList.emit).toHaveBeenCalled();
+    });
+  })
+
+  describe('method: ngOnInit', () => {
+    it('should init criteria', () => {
+      spyOn(component, 'initCriteria');
+      component.ngOnInit();
+      expect(component.initCriteria).toHaveBeenCalled();
+      expect(component.criteria.property).toEqual('');
+      expect(component.criteria.descending).toEqual(false);
+      expect(component.criteria.filter).toEqual('');
+    });
   });
+  
 });

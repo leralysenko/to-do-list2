@@ -31,9 +31,12 @@ describe('NewItemDialogComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call dialogRef.close method when save data', () => {
-    spyOn(component.dialogRef, 'close');
-    component.save();
-    expect(component.dialogRef.close).toHaveBeenCalled();
-  })
+
+  describe('method: save', () => {
+    it('should call dialogRef.close method', () => {
+      spyOn(component.dialogRef, 'close');
+      component.save();
+      expect(component.dialogRef.close).toHaveBeenCalled();
+    })
+  });
 });

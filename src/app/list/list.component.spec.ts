@@ -40,44 +40,56 @@ describe('ListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call addNewItem method and add item in list', () => {
-    component.addNewItem(newItem);
-    expect(component.list).toContain(newItem);
+  describe('method: addNewItem', () => {
+    it('should add item in list', () => {
+      component.addNewItem(newItem);
+      expect(component.list).toContain(newItem);
+    });
   });
 
-  it('should call deleteItem method and delete item from list', () => {
-    component.addNewItem(newItem);
-    component.deleteItem(newItem);
-    const isContain = component.list.some(el => el.id === newItem.id);
-    expect(isContain).toBe(false);
+  describe('method: deleteItem', () => {
+    it('should delete item from list', () => {
+      component.addNewItem(newItem);
+      component.deleteItem(newItem);
+      const isContain = component.list.some(el => el.id === newItem.id);
+      expect(isContain).toBe(false);
+    });
   });
 
-  it('should call changeMode method and set new mode value', () => {
-    const mode = Mode.active;
-    component.changeMode(mode);
-    expect(component.mode).toEqual(mode);
+  describe('method: changeMode', () => {
+    it('should set new mode value', () => {
+      const mode = Mode.active;
+      component.changeMode(mode);
+      expect(component.mode).toEqual(mode);
+    });
   });
 
-  it('should delete CompletedItems when call deleteCompletedItems method', () => {
-    component.addNewItem(newItem);
-    component.addNewItem(completedItem);
-    expect(component.list.length).toBe(2);
-    component.deleteCompletedItems();
-    expect(component.list.length).toBe(1);
-  })
-
-  it('should call filterList method and set value for filteredList variable', () => {
-    component.addNewItem(newItem);
-    component.addNewItem(completedItem);
-    component.filterList(criteria);
-    expect(component.filteredList[1]).toEqual(newItem);
+  describe('method: deleteCompletedItems', () => {
+    it('should delete completed Items in list', () => {
+      component.addNewItem(newItem);
+      component.addNewItem(completedItem);
+      expect(component.list.length).toBe(2);
+      component.deleteCompletedItems();
+      expect(component.list.length).toBe(1);
+    })
   });
 
-  it('should call openFilterMenu method and show/hide filter menu', () => {
-    expect(fixture.debugElement.query(By.css('.filter-menu'))).toBeFalsy();
-    component.openFilterMenu();
-    fixture.detectChanges();
-    expect(component.isShowedFilterMenu).toBeTrue();
-    expect(fixture.debugElement.query(By.css('.filter-menu'))).toBeTruthy();
+  describe('method: filterList', () => {
+    it('should filter a list and set new value for filteredList variable', () => {
+      component.addNewItem(newItem);
+      component.addNewItem(completedItem);
+      component.filterList(criteria);
+      expect(component.filteredList[1]).toEqual(newItem);
+    });
+  });
+
+  describe('method: openFilterMenu', () => {
+    it('should show/hide block with .filter-menu class', () => {
+      expect(fixture.debugElement.query(By.css('.filter-menu'))).toBeFalsy();
+      component.openFilterMenu();
+      fixture.detectChanges();
+      expect(component.isShowedFilterMenu).toBeTrue();
+      expect(fixture.debugElement.query(By.css('.filter-menu'))).toBeTruthy();
+    });
   });
 });
