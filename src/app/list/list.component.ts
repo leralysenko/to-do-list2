@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { filter, Observable } from 'rxjs';
 import { Criteria } from '../model/Criteria';
 import { Item } from '../model/Item';
 import { Mode } from '../model/Mode';
 import { NewItemDialogComponent } from '../new-item-dialog/new-item-dialog.component';
+import { ListService } from '../services/list.service';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent {
+export class ListComponent implements OnInit {
 
   public list: Item[] = [];
   public filteredList: Item[] = [];
@@ -24,6 +25,7 @@ export class ListComponent {
 
   constructor(
     private readonly dialog: MatDialog,
+    private readonly listService: ListService
   ) { }
 
   public addNewItem(newItem: Item): void {
@@ -72,6 +74,10 @@ export class ListComponent {
     const dialogConfig = this.getConfigDialog(item);
     const dialogRef = this.dialog.open(NewItemDialogComponent, dialogConfig);
     return dialogRef.afterClosed().pipe(filter(res => res));
+  }
+
+  public ngOnInit() {
+    this.listService.getListFromYear(2024).subscribe(res => {console.log('list', res);});
   }
 
   private getConfigDialog(item: Item): MatDialogConfig {

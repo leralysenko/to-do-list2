@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { list } from '../mock-list';
+import { forkJoin, from, map, Observable, of, switchMap, take, tap } from 'rxjs';
+import { list, secondList } from '../mock-list';
 import { Item } from '../model/Item';
 
 @Injectable({
@@ -14,7 +14,29 @@ export class ListService {
     return of(list);
   }
 
-  public saveList(list: Item[]): void {
-    sessionStorage.setItem('list', JSON.stringify(list));
+  public getNamesFromList(): Observable<string[]> {
+    return of(list).pipe(map(res => res.map(el => el.name)));
+  }
+
+  public getAllLists(): Observable<Item[]> {
+    return forkJoin(
+      {
+        list1: of(list),
+        list2: of(secondList)
+      }).pipe(map(res => [...res.list1, ...res.list2]))
+  }
+
+  public getListFromYear(year: number): Observable<Item[]> {
+    let currentYear: number;
+    return of(year)
+      .pipe(
+        tap(res => currentYear = res),
+        switchMap(() => this.getAllLists()),
+        map(res => res.filter(el => el.currentDate.getFullYear() === currentYear))
+      )
+  }
+
+  public getFirstItemFromList(): Observable<Item> {
+    return from(list).pipe(take(1));
   }
 }
