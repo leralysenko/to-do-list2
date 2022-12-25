@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, from, map, Observable, of, switchMap, take, tap } from 'rxjs';
-import { list, secondList } from '../mock-list';
+import { ListAdapter } from '../adapters/list-adapter';
+import { deprecatedList, list, secondList } from '../mock-list';
 import { Item } from '../model/Item';
 
 @Injectable({
@@ -8,7 +9,9 @@ import { Item } from '../model/Item';
 })
 export class ListService {
 
-  constructor() { }
+  constructor(
+    private readonly listAdapter: ListAdapter
+  ) { }
 
   public getList(): Observable<Item[]> {
     return of(list);
@@ -38,5 +41,12 @@ export class ListService {
 
   public getFirstItemFromList(): Observable<Item> {
     return from(list).pipe(take(1));
+  }
+
+  public getDeprecatedList(): Observable<Item[]> {
+    return of(deprecatedList)
+      .pipe(
+        map(this.listAdapter.adaptArray)
+      )
   }
 }

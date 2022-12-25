@@ -77,7 +77,7 @@ export class ListComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.listService.getListFromYear(2024).subscribe(res => {console.log('list', res);});
+    this.listService.getDeprecatedList().subscribe(res => {console.log('list', res);});
   }
 
   private getConfigDialog(item: Item): MatDialogConfig {

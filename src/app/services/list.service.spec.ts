@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { concat, map, switchMap, take, tap } from 'rxjs';
 import { TestScheduler } from 'rxjs/testing';
-import { list, secondList } from '../mock-list';
+import { ListAdapter } from '../adapters/list-adapter';
+import { deprecatedList, list, modernList, secondList } from '../mock-list';
 import { Item } from '../model/Item';
 
 import { ListService } from './list.service';
@@ -9,10 +10,18 @@ import { ListService } from './list.service';
 describe('ListService', () => {
   let service: ListService;
   let testScheduler: TestScheduler;
+  let listAdapter: jasmine.SpyObj<ListAdapter>;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    const spy = jasmine.createSpyObj('ListAdapter', ['adaptArray']);
+    TestBed.configureTestingModule({
+      providers: [
+        ListService,
+        { provide: ListAdapter, useValue: spy }
+      ]
+    });
     service = TestBed.inject(ListService);
+    listAdapter = TestBed.inject(ListAdapter) as jasmine.SpyObj<ListAdapter>;
     
     testScheduler = new TestScheduler((actual, expected) => {
       expect(actual).toEqual(expected);
@@ -99,6 +108,22 @@ describe('ListService', () => {
         );
 
         expectObservable(destination$).toBe(expected, {a: 'text1', b: 'text2'});
+      });
+    })
+  })
+
+  describe('method: getDeprecatedList', () => {
+    it('should return deprecated list and adapt to modern one', () => {
+      listAdapter.adaptArray.and.returnValue(modernList);
+      testScheduler.run(({cold, expectObservable}) => {
+        const source$ = cold('a|', {a: deprecatedList});
+        const expected = 'b|';
+  
+        const destination$ = source$.pipe(
+          map(res => listAdapter.adaptArray(res))
+        );
+  
+        expectObservable(destination$).toBe(expected, {b: modernList});
       });
     })
   })
